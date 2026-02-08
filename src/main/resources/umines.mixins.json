@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.loremv.umines.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+
+	],
+	"client":
+	[
+		"FruityLookingOresMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
