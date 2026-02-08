@@ -2,10 +2,11 @@ package com.loremv.umines;
 
 
 import com.loremv.umines.items.ItemWithChemical;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 
 import java.util.HashMap;
@@ -138,21 +139,20 @@ public class OreUtils {
 
     }
     public static final HashMap<String, int[]> ORES = new HashMap<>();
-    public static final HashMap<String,int[]> ALT_ORES = new HashMap<>();
     static
     {
         ORES.put("Bauxite",new int[]{13,13,13,31,23});
         ORES.put("Pyrite",new int[]{26,16,16});
-        ORES.put("Galena",new int[]{82,47,16});
+        ORES.put("Galena",new int[]{26,47,16});
         ORES.put("Carnotite",new int[]{19,19,92,23});
         ORES.put("Malachite",new int[]{29,29,6});
         ORES.put("Smithsonite",new int[]{30,30,6,48});
         ORES.put("Magnesite",new int[]{12,6});
         ORES.put("Hemimorphite",new int[]{30,30,30,30,14,14});
         ORES.put("Monazite-Ce",new int[]{58,57,60,90});
-        ALT_ORES.put("Monazite-Sm",new int[]{62,64,58,90});
-        ALT_ORES.put("Halite",new int[]{11,17});
-        ALT_ORES.put("Romanechite",new int[]{56,25});
+        ORES.put("Monazite-Sm",new int[]{62,64,58,90});
+        ORES.put("Halite",new int[]{11,17});
+        ORES.put("Romanechite",new int[]{56,25});
         ORES.put("Pentlandite",new int[]{26,28,16});
         ORES.put("Chromite",new int[]{12,26,24});
         ORES.put("Stibnite",new int[]{51,51,16,16,16});
@@ -162,7 +162,6 @@ public class OreUtils {
         ORES.put("Sphalerite",new int[]{30,26});
         ORES.put("Cassiterite",new int[]{50});
         ORES.put("Chalcopyrite",new int[]{26,29,16,16});
-        ORES.put("Petzite",new int[]{47,79,52});
     }
 
     public static final List<String> keys = OreUtils.ORES.keySet().stream().toList();

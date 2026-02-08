@@ -2,6 +2,7 @@ package com.loremv.umines.items;
 
 import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -21,18 +21,19 @@ public class ChemicalDustItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> tooltip, TooltipFlag p_41424_) {
-
-        if(stack.hasTag())
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if(stack.has(DataComponents.CUSTOM_DATA))
         {
-            tooltip.add(Component.literal(OreUtils.ELEMENTS.get(stack.getTag().getInt("element"))));
+            tooltipComponents.add(Component.empty().append(OreUtils.ELEMENTS.get(stack.get(DataComponents.CUSTOM_DATA).copyTag().getInt("element"))));
+            //tooltip.add(Text.of("You don't currently have a mod that has this dust or raw ore"));
+            //tooltip.add(Text.of("If you do get one, just use this item in the air and it will turn into the correct thing"));
         }
-        super.appendHoverText(stack, p_41422_, tooltip, p_41424_);
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        if(!world.isClientSide && user.getItemInHand(hand).is(UnmovableMines.CHEMICAL_DUST_ITEM.get()))
+        if(!world.isClientSide && user.getItemInHand(hand).is(UnmovableMines.CHEMICAL_DUST_ITEM))
         {
             if(user.hasPermissions(1) && user.isCrouching())
             {
@@ -40,7 +41,7 @@ public class ChemicalDustItem extends Item {
                 user.sendSystemMessage(Component.empty().append("Reloaded ore list!"));
             }
 
-            int e = user.getItemInHand(hand).getTag().getInt("element");
+            int e = user.getItemInHand(hand).get(DataComponents.CUSTOM_DATA).copyTag().getInt("element");
             Item item = OreUtils.ELEMENT_ITEM_MAP.getOrDefault(OreUtils.ELEMENTS.get(e), Items.STICK);
             if(item!=Items.STICK)
             {

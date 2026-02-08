@@ -6,8 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -29,11 +27,11 @@ public class ItemWithChemical extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> tooltip, TooltipFlag p_41424_) {
-        super.appendHoverText(stack, p_41422_, tooltip, p_41424_);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         for(int atoms: atomic)
         {
-            tooltip.add(Component.literal(OreUtils.ELEMENTS.get(atoms)));
+            tooltipComponents.add(Component.empty().append(OreUtils.ELEMENTS.get(atoms)));
         }
     }
 }

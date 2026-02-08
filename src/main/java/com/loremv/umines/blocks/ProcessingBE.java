@@ -5,11 +5,14 @@ import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
 import com.loremv.umines.items.ItemWithChemical;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,20 +24,19 @@ public class ProcessingBE extends BlockEntity {
         super(UnmovableMines.PROCESSOR_BE.get(), pos, state);
     }
 
-
     @Override
-    protected void saveAdditional(CompoundTag tag) {
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         if(processedOres==null)
         {
             processedOres=new ListTag();
         }
         tag.put("processedOres",processedOres);
-        super.saveAdditional(tag);
+        super.saveAdditional(tag, registries);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         processedOres= (ListTag) tag.get("processedOres");
     }
 
@@ -94,7 +96,7 @@ public class ProcessingBE extends BlockEntity {
                                 {
                                     CompoundTag compound = new CompoundTag();
                                     compound.putInt("element",atomics[j]);
-                                    output.setTag(compound);
+                                    output.set(DataComponents.CUSTOM_DATA, CustomData.of(compound));
                                 }
 
                                 for (int k = 0; k < out.getContainerSize(); k++) {
@@ -102,7 +104,7 @@ public class ProcessingBE extends BlockEntity {
                                     {
                                         if(out.getItem(k).is(UnmovableMines.CHEMICAL_DUST_ITEM.get()))
                                         {
-                                            if(out.getItem(k).getTag().getInt("element")==output.getTag().getInt("element"))
+                                            if(out.getItem(k).get(DataComponents.CUSTOM_DATA).copyTag().getInt("element")==output.get(DataComponents.CUSTOM_DATA).copyTag().getInt("element"))
                                             {
                                                 in.getItem(i).shrink(1);
                                                 out.getItem(k).grow(1);

@@ -24,6 +24,6 @@ As of 1.1.0, you can create an `ores.txt` file in `config/umines/` where you can
 uranium=minecraft:oak_planks
 cerium=minecraft:spruce_planks
 ```
-this is useful if you want specific elements to mean something different, or you want the element to convert to a different form. 
+this is useful if you want specific elements to mean something different, or you want the element to convert to a different form.
 
 For a more realistic example, you may want to have uranium (the element) map to the Alex's Caves Uranium (yes this mod works with forge if you use Sinytra)
