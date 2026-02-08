@@ -2,11 +2,11 @@ package com.loremv.umines.items;
 
 
 import com.loremv.umines.OreUtils;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemWithChemical extends Item {
     private final int[] atomic;
     private final String ores;
-    public ItemWithChemical(Properties settings, int[] atoms,String ore) {
+    public ItemWithChemical(Settings settings, int[] atoms,String ore) {
         super(settings);
         atomic=atoms;
         ores=ore;
@@ -29,11 +29,14 @@ public class ItemWithChemical extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> tooltip, TooltipFlag p_41424_) {
-        super.appendHoverText(stack, p_41422_, tooltip, p_41424_);
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+
         for(int atoms: atomic)
         {
-            tooltip.add(Component.literal(OreUtils.ELEMENTS.get(atoms)));
+            tooltip.add(Text.of(OreUtils.ELEMENTS.get(atoms)));
         }
     }
+
+
 }

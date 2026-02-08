@@ -3,45 +3,43 @@ package com.loremv.umines.blocks;
 
 import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 
 public class MiningBE extends BlockEntity {
     private String minedOre = "empty";
     public MiningBE(BlockPos pos, BlockState state) {
-        super(UnmovableMines.MINING_BE.get(), pos, state);
+        super(UnmovableMines.INFORMATION_BLOCK_ENTITY, pos, state);
 
     }
 
-
-
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        tag.putString("minedOre",minedOre);
-        super.saveAdditional(tag);
+    protected void writeNbt(NbtCompound nbt) {
+        nbt.putString("minedOre",minedOre);
+        super.writeNbt(nbt);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
-        minedOre=tag.getString("minedOre");
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        minedOre=nbt.getString("minedOre");
     }
 
     public void setMinedOre(String minedOre) {
         this.minedOre = minedOre;
-        setChanged();
+        markDirty();
     }
 
-    public static void tick(Level world, BlockPos pos, BlockState state, MiningBE be)
+    public static void tick(World world, BlockPos pos, BlockState state, MiningBE be)
     {
-        if(world.getDayTime()%995L==0L)
+        if(world.getTimeOfDay()%995L==0L)
         {
             if(be.minedOre.equals("empty"))
             {
@@ -51,19 +49,19 @@ public class MiningBE extends BlockEntity {
 
             }
         }
-        if(world.getDayTime()%1000L==0L)
+        if(world.getTimeOfDay()%1000L==0L)
         {
-            if(world.getBlockEntity(pos.above()) instanceof Container inventory)
+            if(world.getBlockEntity(pos.up()) instanceof Inventory inventory)
             {
-                for (int i = 0; i < inventory.getContainerSize(); i++) {
-                    if(inventory.getItem(i).is(OreUtils.REGISTRY.get(be.minedOre)) && inventory.getItem(i).getCount()<inventory.getItem(i).getMaxStackSize())
+                for (int i = 0; i < inventory.size(); i++) {
+                    if(inventory.getStack(i).isOf(OreUtils.REGISTRY.get(be.minedOre)))
                     {
-                        inventory.getItem(i).grow(1);
+                        inventory.getStack(i).increment(1);
                         break;
                     }
-                    else if(inventory.getItem(i).isEmpty())
+                    else if(inventory.getStack(i).isEmpty())
                     {
-                        inventory.setItem(i, new ItemStack(OreUtils.REGISTRY.getOrDefault(be.minedOre, Items.COBBLESTONE)));
+                        inventory.setStack(i, new ItemStack(OreUtils.REGISTRY.getOrDefault(be.minedOre, Items.COBBLESTONE)));
                         break;
                     }
                 }

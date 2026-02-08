@@ -2,10 +2,12 @@ package com.loremv.umines;
 
 
 import com.loremv.umines.items.ItemWithChemical;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 
 import java.util.HashMap;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class OreUtils {
 
-    public static HashMap<String, Item> ELEMENT_ITEM_MAP = new HashMap<>();
+    public static HashMap<String,Item> ELEMENT_ITEM_MAP = new HashMap<>();
     public static final HashMap<Integer, String> ELEMENTS = new HashMap<>();
     static
     {
@@ -138,21 +140,20 @@ public class OreUtils {
 
     }
     public static final HashMap<String, int[]> ORES = new HashMap<>();
-    public static final HashMap<String,int[]> ALT_ORES = new HashMap<>();
     static
     {
         ORES.put("Bauxite",new int[]{13,13,13,31,23});
         ORES.put("Pyrite",new int[]{26,16,16});
-        ORES.put("Galena",new int[]{82,47,16});
+        ORES.put("Galena",new int[]{26,47,16});
         ORES.put("Carnotite",new int[]{19,19,92,23});
         ORES.put("Malachite",new int[]{29,29,6});
         ORES.put("Smithsonite",new int[]{30,30,6,48});
         ORES.put("Magnesite",new int[]{12,6});
         ORES.put("Hemimorphite",new int[]{30,30,30,30,14,14});
         ORES.put("Monazite-Ce",new int[]{58,57,60,90});
-        ALT_ORES.put("Monazite-Sm",new int[]{62,64,58,90});
-        ALT_ORES.put("Halite",new int[]{11,17});
-        ALT_ORES.put("Romanechite",new int[]{56,25});
+        ORES.put("Monazite-Sm",new int[]{62,64,58,90});
+        ORES.put("Halite",new int[]{11,17});
+        ORES.put("Romanechite",new int[]{56,25});
         ORES.put("Pentlandite",new int[]{26,28,16});
         ORES.put("Chromite",new int[]{12,26,24});
         ORES.put("Stibnite",new int[]{51,51,16,16,16});
@@ -162,53 +163,49 @@ public class OreUtils {
         ORES.put("Sphalerite",new int[]{30,26});
         ORES.put("Cassiterite",new int[]{50});
         ORES.put("Chalcopyrite",new int[]{26,29,16,16});
-        ORES.put("Petzite",new int[]{47,79,52});
     }
 
     public static final List<String> keys = OreUtils.ORES.keySet().stream().toList();
 
     public static HashMap<String,Item> REGISTRY = new HashMap<>();
-    public static boolean registerOres(DeferredRegister<Item> reg)
+    public static void registerOres()
     {
-        for(String a: ORES.keySet())
+        ORES.keySet().forEach(a->
         {
-            reg.register(a.toLowerCase(),()->{
-                Item item = new ItemWithChemical(new Item.Properties(),ORES.get(a),a);
-                REGISTRY.put(a.toLowerCase(),item);
-                return item;
-            });
+            Item item = new ItemWithChemical(new Item.Settings(),ORES.get(a),a);
+            Registry.register(Registries.ITEM,new Identifier("umines",a.toLowerCase()),item);
+            REGISTRY.put(a.toLowerCase(),item);
 
-            //ItemGroupEvents.modifyEntriesEvent(Registries.ITEM_GROUP.getKey(UnmovableMines.TAB).get()).register(content -> content.add(item));
-        }
-        return true;
+            ItemGroupEvents.modifyEntriesEvent(Registries.ITEM_GROUP.getKey(UnmovableMines.TAB).get()).register(content -> content.add(item));
+        });
     }
 
     public static void setElementItemMap()
     {
-        //UnmovableMines.LOGGER.info("guessing raw ores from elements");
-        List<Item> dusts = BuiltInRegistries.ITEM.stream().filter(a->BuiltInRegistries.ITEM.getKey(a).getPath().contains("raw")||BuiltInRegistries.ITEM.getKey(a).getPath().contains("dust")).toList();
+        UnmovableMines.LOGGER.info("guessing raw ores from elements");
+        List<Item> dusts = Registries.ITEM.stream().filter(a->Registries.ITEM.getId(a).getPath().contains("raw")||Registries.ITEM.getId(a).getPath().contains("dust")).toList();
         for(String element: ELEMENTS.values())
         {
             if(AltOreLoader.MAPPED.containsKey(element))
             {
-                ELEMENT_ITEM_MAP.put(element,BuiltInRegistries.ITEM.get(ResourceLocation.parse(AltOreLoader.MAPPED.get(element))));
+                ELEMENT_ITEM_MAP.put(element,Registries.ITEM.get(new Identifier(AltOreLoader.MAPPED.get(element))));
                 continue;
             }
             for(Item dust: dusts)
             {
-                if(BuiltInRegistries.ITEM.getKey(dust).getPath().equals(element+"_dust"))
+                if(Registries.ITEM.getId(dust).getPath().equals(element+"_dust"))
                 {
                     ELEMENT_ITEM_MAP.put(element,dust);
                     break;
                 }
-                if(BuiltInRegistries.ITEM.getKey(dust).getPath().equals("raw_"+element))
+                if(Registries.ITEM.getId(dust).getPath().equals("raw_"+element))
                 {
                     ELEMENT_ITEM_MAP.put(element,dust);
                     break;
                 }
             }
         }
-        //UnmovableMines.LOGGER.info("raw ores guessed, "+ELEMENT_ITEM_MAP.keySet().size()+" found");
+        UnmovableMines.LOGGER.info("raw ores guessed, "+ELEMENT_ITEM_MAP.keySet().size()+" found");
     }
 
 }

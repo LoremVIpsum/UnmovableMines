@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cfb_chemical_chute",
+  "pattern": [
+    "# #",
+    "B B",
+    "#H#"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:barrel"
+    },
+    "#":
+    {
+      "tag": "minecraft:planks"
+    },
+    "H":
+    {
+      "item": "minecraft:hopper"
+    }
+  },
+  "result": {
+    "item": "cfb:chemical_chute"
+  }
+}

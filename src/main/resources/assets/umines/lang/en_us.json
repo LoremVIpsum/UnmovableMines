@@ -20,6 +20,5 @@
   "item.umines.sphalerite": "Sphalerite Ore",
   "item.umines.cassiterite": "Cassiterite Ore",
   "item.umines.chalcopyrite": "Chalcopyrite Ore",
-  "item.umines.chemical_dust": "Chemical Dust",
-  "itemGroup.umines": "Unmovable Mines"
+  "item.umines.chemical_dust": "Chemical Dust"
 }
