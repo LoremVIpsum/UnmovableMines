@@ -1,7 +1,5 @@
 package com.loremv.umines.blocks;
 
-
-import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -30,26 +28,32 @@ public class MiningBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState p_60503_, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_60508_) {
+    public InteractionResult use(
+            BlockState blockState,
+            Level world,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult blockHitResult
+    ) {
         if(hand==InteractionHand.MAIN_HAND && !world.isClientSide)
         {
-            MiningBE miningBE = (MiningBE) world.getBlockEntity(pos);
-            if(miningBE.getMinedOre().equals("empty"))
+            var miningBE = (MiningBE) world.getBlockEntity(pos);
+            if (miningBE == null) { return InteractionResult.FAIL; }
+            if(miningBE.getMinedOre().isEmpty())
             {
                 RandomSource random = RandomSource.create(pos.asLong());
-                String s = OreUtils.keys.get(random.nextInt(OreUtils.keys.size())).toLowerCase();
-                miningBE.setMinedOre(s);
+                miningBE.chooseMinedOre(random);
             }
 
             Style style = Style.EMPTY.withHoverEvent(
                     new HoverEvent(HoverEvent.Action.SHOW_ITEM,
-                            new HoverEvent.ItemStackInfo(OreUtils.REGISTRY.get(miningBE.getMinedOre()).getDefaultInstance())));
+                            new HoverEvent.ItemStackInfo(miningBE.getMinedOre().get().getDefaultInstance())));
 
-            player.sendSystemMessage(Component.empty().setStyle(style).append("This mine is for "+miningBE.getMinedOre()));
-
+            player.sendSystemMessage(Component.empty().setStyle(style).append("This mine is for "+miningBE.getMinedOre().get().getElementName()));
 
         }
-        return super.use(p_60503_,world,pos,player,hand, p_60508_);
+        return super.use(blockState,world,pos,player,hand, blockHitResult);
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "produces": [
+    { "name": "antimony", "rolls": 2 },
+    { "name": "sulfur", "rolls": 3 }
+  ]
+}

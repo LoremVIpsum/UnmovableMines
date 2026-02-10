@@ -1,0 +1,4 @@
+{
+  "items": ["#c:dusts/sulfur", "#c:items/sulfur", "#c:sulfur"],
+  "fallback_type": "raw"
+}

@@ -1,0 +1,4 @@
+{
+  "items": ["#c:raw_materials/lead", "#c:ingots/lead"],
+  "fallback_type": "dust"
+}

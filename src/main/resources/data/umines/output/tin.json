@@ -1,0 +1,4 @@
+{
+  "items": ["#c:raw_materials/tin", "#c:ingots/tin"],
+  "fallback_type": "raw"
+}

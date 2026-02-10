@@ -1,0 +1,7 @@
+{
+  "produces": [
+    { "name": "potassium", "rolls": 2 },
+    { "name": "uranium", "rolls": 1 },
+    { "name": "vanadium", "rolls": 1 }
+  ]
+}

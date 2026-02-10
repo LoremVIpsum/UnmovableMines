@@ -1,0 +1,4 @@
+{
+  "items": ["#c:items/aluminum", "#c:dusts/aluminum"],
+  "fallback_type": "raw"
+}

@@ -1,0 +1,7 @@
+{
+  "produces": [
+    { "name": "silver", "rolls": 1 },
+    { "name": "gold", "rolls": 1 },
+    { "name": "tellurium", "rolls": 1 }
+  ]
+}

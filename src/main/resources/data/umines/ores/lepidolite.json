@@ -1,0 +1,9 @@
+{
+  "produces": [
+    { "name": "potassium", "rolls": 1 },
+    { "name": "lithium", "rolls": 1 },
+    { "name": "aluminum", "rolls": 1 },
+    { "name": "silicon", "rolls": 1 },
+    { "name": "rubidium", "rolls": 1 }
+  ]
+}

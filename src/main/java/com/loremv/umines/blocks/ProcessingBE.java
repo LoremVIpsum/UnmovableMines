@@ -1,8 +1,7 @@
 package com.loremv.umines.blocks;
 
-
-import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
+import com.loremv.umines.UnmovableMinesUtil;
 import com.loremv.umines.items.ItemWithChemical;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ProcessingBE extends BlockEntity {
 
     private ListTag processedOres;
+
     public ProcessingBE(BlockPos pos, BlockState state) {
         super(UnmovableMines.PROCESSOR_BE.get(), pos, state);
     }
@@ -24,18 +24,17 @@ public class ProcessingBE extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
-        if(processedOres==null)
-        {
-            processedOres=new ListTag();
+        if (processedOres == null) {
+            processedOres = new ListTag();
         }
-        tag.put("processedOres",processedOres);
+        tag.put("processedOres", processedOres);
         super.saveAdditional(tag);
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        processedOres= (ListTag) tag.get("processedOres");
+        processedOres = (ListTag) tag.get("processedOres");
     }
 
     public ListTag getProcessedOres() {
@@ -44,91 +43,71 @@ public class ProcessingBE extends BlockEntity {
     }
 
     public void setProcessedOres(ListTag processedOres) {
-        if(OreUtils.ELEMENT_ITEM_MAP==null||OreUtils.ELEMENT_ITEM_MAP.isEmpty())
-        {
-            OreUtils.setElementItemMap();
-        }
         this.processedOres = processedOres;
         setChanged();
     }
 
-    public static void tick(Level world, BlockPos pos, BlockState state, ProcessingBE be)
-    {
-        if(world.getDayTime()%195L==0L)
-        {
-            if(be.getProcessedOres()==null || be.getProcessedOres().isEmpty())
-            {
-                ListTag ores = new ListTag();
-                for (int i = 0; i < world.random.nextInt(1,5); i++) {
-                    ores.add(StringTag.valueOf(OreUtils.keys.get(world.random.nextInt(OreUtils.keys.size()))));
-                }
-                be.setProcessedOres(ores);
+    private boolean processesOreType(String query) {
+        for (int l = 0; l < getProcessedOres().size(); l++) {
+            if (getProcessedOres().get(l).getAsString().equals(query)) {
+                return true;
             }
         }
-        if(world.getDayTime()%200L==0L)
-        {
-            if(world.getBlockEntity(pos.above()) instanceof Container in)
-            {
-                if(world.getBlockEntity(pos.below()) instanceof Container out)
-                {
-                    for (int i = 0; i < in.getContainerSize(); i++) {
-                        if(in.getItem(i).getItem() instanceof ItemWithChemical chemical)
-                        {
-                            boolean found = false;
-                            for (int l = 0; l < be.getProcessedOres().size(); l++)
-                            {
-                                if(be.getProcessedOres().getString(l).equals(chemical.getOres()))
-                                {
-                                    found=true;
-                                }
-                            }
-                            if(!found) break;
+        return false;
+    }
 
-                            int[] atomics = chemical.getAtomic();
-                            int take = world.random.nextInt(atomics.length)+1;
-                            for (int j = 0; j < take; j++)
-                            {
-                                ItemStack output = OreUtils.ELEMENT_ITEM_MAP.getOrDefault(OreUtils.ELEMENTS.get(atomics[j]), UnmovableMines.CHEMICAL_DUST_ITEM.get()).getDefaultInstance();
+    public void ensureOresAreChosen(Level world) {
+        if (getProcessedOres() != null && !getProcessedOres().isEmpty()) {
+            return;
+        }
+        ListTag ores = new ListTag();
+        for (var ore : UnmovableMinesUtil.pickRandom(
+                UnmovableMines.getDynamicContentManager().getOreNames(),
+                world.random.nextInt(1, 5),
+                world.random
+        )) {
+            ores.add(StringTag.valueOf(ore));
+        }
+        this.setProcessedOres(ores);
+    }
 
-                                if(output.is(UnmovableMines.CHEMICAL_DUST_ITEM.get()))
-                                {
-                                    CompoundTag compound = new CompoundTag();
-                                    compound.putInt("element",atomics[j]);
-                                    output.setTag(compound);
-                                }
+    public static void tick(Level world, BlockPos pos, BlockState state, ProcessingBE be) {
+        if (!(world.getDayTime() % 200L == 0L)) {
+            return;
+        }
 
-                                for (int k = 0; k < out.getContainerSize(); k++) {
-                                    if(out.getItem(k).is(output.getItem()) && out.getItem(k).getCount()<out.getItem(k).getMaxStackSize())
-                                    {
-                                        if(out.getItem(k).is(UnmovableMines.CHEMICAL_DUST_ITEM.get()))
-                                        {
-                                            if(out.getItem(k).getTag().getInt("element")==output.getTag().getInt("element"))
-                                            {
-                                                in.getItem(i).shrink(1);
-                                                out.getItem(k).grow(1);
-                                                break;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            in.getItem(i).shrink(1);
-                                            out.getItem(k).grow(1);
-                                            break;
-                                        }
+        be.ensureOresAreChosen(world);
 
+        if (!(world.getBlockEntity(pos.above()) instanceof Container in)) return;
+        if (!(world.getBlockEntity(pos.below()) instanceof Container out)) return;
 
-                                    }
-                                    else if(out.getItem(k).isEmpty())
-                                    {
-                                        in.getItem(i).shrink(1);
-                                        out.setItem(k,output);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        ItemStack targetStack = null;
+        ItemWithChemical targetChemicalItem = null;
+
+        for (var i = 0; i < in.getContainerSize(); i++) {
+            if (!(in.getItem(i).getItem() instanceof ItemWithChemical chemical)) continue;
+            if (!be.processesOreType(chemical.getElementName())) continue;
+            targetStack = in.getItem(i);
+            targetChemicalItem = chemical;
+            break;
+        }
+
+        if (targetStack == null) {
+            return;
+        }
+
+        ItemStack outputStack = targetChemicalItem.getNextDrop().item().copy();
+
+        for (int i = 0; i < out.getContainerSize(); i++) {
+            var outSlot = out.getItem(i);
+            if (outSlot.isStackable() && outSlot.getCount() < outSlot.getMaxStackSize() && ItemStack.isSameItemSameTags(outSlot, outputStack)) {
+                targetStack.shrink(1);
+                outSlot.grow(1);
+                break;
+            } else if (outSlot.isEmpty()) {
+                targetStack.shrink(1);
+                out.setItem(i, outputStack);
+                break;
             }
         }
     }

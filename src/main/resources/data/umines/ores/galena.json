@@ -1,0 +1,7 @@
+{
+  "produces": [
+    { "name": "lead", "rolls": 1 },
+    { "name": "silver", "rolls": 1 },
+    { "name": "sulfur", "rolls": 1 }
+  ]
+}

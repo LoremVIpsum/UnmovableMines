@@ -1,0 +1,8 @@
+{
+  "produces": [
+    { "name": "aluminum", "rolls": 3 },
+    { "name": "silicon", "rolls": 1 },
+    { "name": "gallium", "rolls": 1 },
+    { "name": "vanadium", "rolls": 1 }
+  ]
+}
