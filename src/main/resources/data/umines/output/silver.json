@@ -1,4 +1,4 @@
 {
-  "items": ["#c:raw_materials/silver", "#c:ingots/silver"],
+  "items": ["#c:dusts/silver","#c:raw_materials/silver"],
   "fallback_type": "raw"
 }

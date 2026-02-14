@@ -10,9 +10,12 @@ import com.loremv.umines.data.OutputDataLoader;
 import com.loremv.umines.items.ChemicalDustItem;
 import com.loremv.umines.items.ItemWithChemical;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -85,9 +88,22 @@ public class UnmovableMines
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         BLOCK_ENTITY_TYPES.register(modEventBus);
+        modEventBus.addListener(this::creative);
     }
 
     public static DynamicContentManager getDynamicContentManager() {
         return DYNAMIC_CONTENT_MANAGER;
+    }
+
+
+    public void creative(BuildCreativeModeTabContentsEvent creativeModeTabContentsEvent)
+    {
+        if(CreativeModeTabs.NATURAL_BLOCKS==creativeModeTabContentsEvent.getTabKey())
+        {
+            for(RegistryObject<ItemWithChemical> ore: UnmovableMines.ORE_ITEMS)
+            {
+                creativeModeTabContentsEvent.accept(ore);
+            }
+        }
     }
 }

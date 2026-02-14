@@ -76,12 +76,16 @@ public class DynamicContentManager {
         }
     }
 
-    public ConcreteOreEntry getConcreteEntry(OreEntry entry) {
+    public Records.ConcreteOreEntry getConcreteEntry(Records.OreEntry entry) {
         ItemStack stack = concreteOutputMapping.get(entry.name());
         if (stack == null) {
             stack = getChemicalDust(entry.name());
         }
-        return new ConcreteOreEntry(stack, entry.rolls());
+        return new Records.ConcreteOreEntry(stack, entry.rolls());
+    }
+
+    public Map<String, ItemStack> getConcreteOutputMapping() {
+        return concreteOutputMapping;
     }
 
     public void registerReloadListener() {
@@ -93,11 +97,11 @@ public class DynamicContentManager {
         outputDataLoader.loadResources();
     }
 
-    public OreData getOreData() {
+    public Records.OreData getOreData() {
         return oreDataLoader.getSnapshot();
     }
 
-    public OutputData getOutputData() {
+    public Records.OutputData getOutputData() {
         return outputDataLoader.getSnapshot();
     }
 

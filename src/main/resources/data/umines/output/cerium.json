@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/cerium","#c:raw_materials/cerium"],
   "fallback_type": "dust"
 }

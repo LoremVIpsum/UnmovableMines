@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/neodymium","#c:raw_materials/neodymium"],
   "fallback_type": "dust"
 }

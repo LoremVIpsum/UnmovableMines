@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/lanthanum","#c:raw_materials/lanthanum"],
   "fallback_type": "dust"
 }

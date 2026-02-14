@@ -1,4 +1,4 @@
 {
-  "items": ["minecraft:raw_gold", "minecraft:gold_ingot"],
+  "items": ["#c:dusts/gold","minecraft:raw_gold"],
   "fallback_type": "dust"
 }

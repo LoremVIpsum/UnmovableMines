@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/arsenic","#c:raw_materials/arsenic"],
   "fallback_type": "dust"
 }

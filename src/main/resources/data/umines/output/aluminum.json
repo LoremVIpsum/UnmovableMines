@@ -1,4 +1,4 @@
 {
-  "items": ["#c:items/aluminum", "#c:dusts/aluminum"],
+  "items": ["#c:dusts/aluminum","#c:raw_materials/aluminum"],
   "fallback_type": "raw"
 }

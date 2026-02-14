@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/magnesium","#c:raw_materials/magnesium"],
   "fallback_type": "dust"
 }

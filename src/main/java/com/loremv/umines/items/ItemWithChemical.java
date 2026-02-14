@@ -2,7 +2,7 @@ package com.loremv.umines.items;
 
 
 import com.loremv.umines.UnmovableMines;
-import com.loremv.umines.data.ConcreteOreEntry;
+import com.loremv.umines.data.Records;
 import com.loremv.umines.data.DynamicContentManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -43,22 +43,22 @@ public class ItemWithChemical extends Item {
                 .findFirst();
     }
 
-    private List<ConcreteOreEntry> getEntries() {
+    private List<Records.ConcreteOreEntry> getEntries() {
         var output = dynamicContentManager.getOreData().ores().get(elementName);
         return output.produces().stream().map(e -> e.toConcrete(dynamicContentManager)).toList();
     }
 
     public List<ItemStack> getOutputItems() {
-        return getEntries().stream().map(ConcreteOreEntry::item).toList();
+        return getEntries().stream().map(Records.ConcreteOreEntry::item).toList();
     }
 
-    public ConcreteOreEntry getNextDrop() {
-        List<ConcreteOreEntry> possibilities = getEntries();
+    public Records.ConcreteOreEntry getNextDrop() {
+        List<Records.ConcreteOreEntry> possibilities = getEntries();
         if (possibilities.isEmpty()) return null;
-        int totalWeight = possibilities.stream().mapToInt(ConcreteOreEntry::rolls).sum();
+        int totalWeight = possibilities.stream().mapToInt(Records.ConcreteOreEntry::rolls).sum();
 
         int r = random.nextInt(totalWeight);
-        for (ConcreteOreEntry drop : possibilities) {
+        for (Records.ConcreteOreEntry drop : possibilities) {
             r -= drop.rolls();
             if (r < 0) return drop;
         }

@@ -7,22 +7,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class OreDataLoader extends SimpleJsonResourceReloadListener {
 
     private static final Gson GSON = new GsonBuilder().create();
-    private static volatile OreData SNAPSHOT = OreData.EMPTY;
+    private static volatile Records.OreData SNAPSHOT = Records.OreData.EMPTY;
 
     public OreDataLoader() {
         super(GSON, "ores");
     }
 
-    public OreData getSnapshot() {
+    public Records.OreData getSnapshot() {
         return SNAPSHOT;
     }
 
@@ -36,12 +36,12 @@ public class OreDataLoader extends SimpleJsonResourceReloadListener {
                          @Nullable ResourceManager manager,
                          @Nullable ProfilerFiller profiler)
     {
-        Map<String, OreDetail> parsed = new HashMap<>();
+        Map<String, Records.OreDetail> parsed = new HashMap<>();
         for (var entry : jsons.entrySet()) {
-            var ore = GSON.fromJson(entry.getValue(), OreDetail.class);
+            var ore = GSON.fromJson(entry.getValue(), Records.OreDetail.class);
             var oreId = entry.getKey().getPath();
             parsed.put(oreId, ore);
         }
-        SNAPSHOT = new OreData(parsed);
+        SNAPSHOT = new Records.OreData(parsed);
     }
 }

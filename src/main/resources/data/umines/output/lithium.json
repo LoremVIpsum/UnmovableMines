@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/lithium","#c:raw_materials/lithium"],
   "fallback_type": "dust"
 }

@@ -1,4 +1,4 @@
 {
-  "items": ["minecraft:raw_iron", "minecraft:iron_ingot"],
+  "items": ["#c:dusts/iron","minecraft:raw_iron"],
   "fallback_type": "raw"
 }

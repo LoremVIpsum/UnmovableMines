@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/antimony","#c:raw_materials/antimony"],
   "fallback_type": "dust"
 }

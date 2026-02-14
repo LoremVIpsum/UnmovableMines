@@ -1,6 +1,9 @@
 package com.loremv.umines.items;
 
 import com.loremv.umines.UnmovableMines;
+import com.loremv.umines.UnmovableMinesUtil;
+import com.loremv.umines.data.DynamicContentManager;
+import com.loremv.umines.data.Records;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -49,18 +52,22 @@ public class ChemicalDustItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
         if(!world.isClientSide && user.getItemInHand(hand).is(UnmovableMines.CHEMICAL_DUST_ITEM.get()))
         {
-            if(user.hasPermissions(1) && user.isCrouching())
-            {
-                //OreLoader.setElementItemMap();
-                user.sendSystemMessage(Component.empty().append("Reloaded ore list!"));
+            ItemStack stack = user.getItemInHand(hand);
+            String material;
+            if (stack.hasTag()) {
+                material = stack.getTag().getString("material");
             }
+            else {return super.use(world,user,hand);}
 
-            int e = user.getItemInHand(hand).getTag().getInt("element");
-            /*Item item = OreLoader.ELEMENT_ITEM_MAP.getOrDefault(OreLoader.ELEMENTS.get(e), Items.STICK);
-            if(item!=Items.STICK)
+            ItemStack mStack  = UnmovableMines.getDynamicContentManager().getConcreteOutputMapping().getOrDefault(material,null);
+            if(mStack!=null)
             {
-                user.setItemInHand(hand,new ItemStack(item,user.getItemInHand(hand).getCount()));
-            }*/
+                ItemStack fresh = mStack.copy();
+                fresh.setCount(stack.getCount());
+                stack.shrink(stack.getCount());
+
+                user.addItem(fresh);
+            }
         }
         return super.use(world,user,hand);
     }

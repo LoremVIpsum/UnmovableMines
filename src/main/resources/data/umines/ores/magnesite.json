@@ -1,7 +1,7 @@
 {
   "produces": [
     { "name": "magnesium", "rolls": 60 },
-    { "name": "coal", "rolls": 70 },
+    { "name": "carbon", "rolls": 70 },
     { "name": "diamond", "rolls": 1 }
   ]
 }

@@ -1,4 +1,4 @@
 {
-  "items": ["#c:raw_materials/uranium", "#c:ingots/uranium"],
+  "items": ["#c:dusts/uranium","#c:raw_materials/uranium"],
   "fallback_type": "raw"
 }

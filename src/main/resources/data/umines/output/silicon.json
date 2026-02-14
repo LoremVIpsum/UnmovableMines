@@ -1,4 +1,4 @@
 {
-  "items": ["#c:items/silicon", "#c:silicon"],
+  "items": ["#c:dusts/silicon","#c:raw_materials/silicon","#c:silicon"],
   "fallback_type": "dust"
 }

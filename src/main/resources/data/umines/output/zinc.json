@@ -1,4 +1,4 @@
 {
-  "items": ["#c:raw_materials/zinc", "#c:ingots/zinc"],
+  "items": ["#c:dusts/zinc","#c:raw_materials/zinc"],
   "fallback_type": "raw"
 }

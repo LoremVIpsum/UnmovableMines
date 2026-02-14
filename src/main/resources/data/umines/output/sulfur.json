@@ -1,4 +1,4 @@
 {
-  "items": ["#c:dusts/sulfur", "#c:items/sulfur", "#c:sulfur"],
+  "items": ["#c:dusts/sulfur","#c:raw_materials/sulfur", "#c:items/sulfur", "#c:sulfur"],
   "fallback_type": "raw"
 }

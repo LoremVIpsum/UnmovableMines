@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/gallium","#c:raw_materials/gallium"],
   "fallback_type": "dust"
 }

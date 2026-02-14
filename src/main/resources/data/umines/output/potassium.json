@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/potassium","#c:raw_materials/potassium"],
   "fallback_type": "dust"
 }

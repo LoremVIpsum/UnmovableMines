@@ -20,6 +20,9 @@
   "item.umines.sphalerite": "Sphalerite Ore",
   "item.umines.cassiterite": "Cassiterite Ore",
   "item.umines.chalcopyrite": "Chalcopyrite Ore",
+  "item.umines.petzite": "Petzite Ore",
   "item.umines.chemical_dust": "Chemical Dust",
-  "itemGroup.umines": "Unmovable Mines"
+  "itemGroup.umines": "Unmovable Mines",
+  "block.umines.processing_block": "Ore Processor",
+  "block.umines.mining_block": "Mine"
 }

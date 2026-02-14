@@ -19,8 +19,8 @@ public class FruityLookingOresMixin {
 	private void init(ItemStack stack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay, BakedModel p_model, CallbackInfo ci) {
 		if(stack.getItem() instanceof ItemWithChemical item)
 		{
-			//RandomSource random = RandomSource.create(item.getOres().chars().sum());
-			//poseStack.scale(random.nextInt(10,100)/100f,random.nextInt(10,100)/100f,random.nextInt(10,100)/100f);
+			RandomSource random = RandomSource.create(item.getElementName().chars().distinct().sum());
+			poseStack.scale(random.nextInt(10,100)/100f,random.nextInt(10,100)/100f,random.nextInt(10,100)/100f);
 		}
 	}
 }

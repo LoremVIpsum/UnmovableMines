@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/vanadium","#c:raw_materials/vanadium"],
   "fallback_type": "dust"
 }

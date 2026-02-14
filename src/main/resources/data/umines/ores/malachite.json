@@ -1,6 +1,6 @@
 {
   "produces": [
     { "name": "copper", "rolls": 5 },
-    { "name": "coal", "rolls": 1 }
+    { "name": "carbon", "rolls": 1 }
   ]
 }

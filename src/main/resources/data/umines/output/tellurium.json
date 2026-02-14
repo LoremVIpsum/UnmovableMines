@@ -1,4 +1,4 @@
 {
-  "items": [],
+  "items": ["#c:dusts/tellurium","#c:raw_materials/tellurium"],
   "fallback_type": "raw"
 }

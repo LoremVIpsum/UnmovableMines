@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -15,13 +14,13 @@ import java.util.Map;
 
 public class OutputDataLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().create();
-    private static volatile OutputData SNAPSHOT = OutputData.EMPTY;
+    private static volatile Records.OutputData SNAPSHOT = Records.OutputData.EMPTY;
 
     public OutputDataLoader() {
         super(GSON, "output");
     }
 
-    public OutputData getSnapshot() {
+    public Records.OutputData getSnapshot() {
         return SNAPSHOT;
     }
 
@@ -35,12 +34,12 @@ public class OutputDataLoader extends SimpleJsonResourceReloadListener {
                          @Nullable ResourceManager manager,
                          @Nullable ProfilerFiller profiler)
     {
-        Map<String, OutputDetail> parsed = new HashMap<>();
+        Map<String, Records.OutputDetail> parsed = new HashMap<>();
         for (var entry : jsons.entrySet()) {
-            var detail = GSON.fromJson(entry.getValue(), OutputDetail.class);
+            var detail = GSON.fromJson(entry.getValue(), Records.OutputDetail.class);
             var name = entry.getKey().getPath();
             parsed.put(name, detail);
         }
-        SNAPSHOT = new OutputData(parsed);
+        SNAPSHOT = new Records.OutputData(parsed);
     }
 }

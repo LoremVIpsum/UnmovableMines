@@ -1,7 +1,7 @@
 {
   "produces": [
     { "name": "zinc", "rolls": 2 },
-    { "name": "coal", "rolls": 1 },
+    { "name": "carbon", "rolls": 1 },
     { "name": "cadmium", "rolls": 1 }
   ]
 }
