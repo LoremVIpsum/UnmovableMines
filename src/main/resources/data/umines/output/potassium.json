@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/potassium","#c:raw_materials/potassium"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/potassium", "#forge:dusts/potassium"], "fallback_type": "dust"}

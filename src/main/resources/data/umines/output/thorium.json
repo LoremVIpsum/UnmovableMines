@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/thorium","#c:raw_materials/thorium"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/thorium", "#forge:dusts/thorium"], "fallback_type": "raw"}

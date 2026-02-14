@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/lead","#c:raw_materials/lead"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/lead", "#forge:dusts/lead"], "fallback_type": "dust"}

@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/aluminum","#c:raw_materials/aluminum"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/aluminium", "#forge:dusts/aluminium"], "fallback_type": "raw"}

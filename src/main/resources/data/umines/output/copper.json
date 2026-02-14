@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/copper","minecraft:raw_copper"],
-  "fallback_type": "raw"
-}
+{"items": ["minecraft:raw_copper", "#forge:dusts/copper"], "fallback_type": "raw"}

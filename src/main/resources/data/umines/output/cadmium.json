@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/cadmium","#c:raw_materials/cadmium"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/cadmium", "#forge:dusts/cadmium"], "fallback_type": "dust"}

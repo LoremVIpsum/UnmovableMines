@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/lanthanum","#c:raw_materials/lanthanum"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/lanthanum", "#forge:dusts/lanthanum"], "fallback_type": "dust"}

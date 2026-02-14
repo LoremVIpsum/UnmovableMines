@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/gallium","#c:raw_materials/gallium"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/gallium", "#forge:dusts/gallium"], "fallback_type": "dust"}

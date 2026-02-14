@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/rubidium","#c:raw_materials/rubidium"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/rubidium", "#forge:dusts/rubidium"], "fallback_type": "raw"}

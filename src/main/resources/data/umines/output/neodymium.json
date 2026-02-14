@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/neodymium","#c:raw_materials/neodymium"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/neodymium", "#forge:dusts/neodymium"], "fallback_type": "dust"}

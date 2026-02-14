@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/silver","#c:raw_materials/silver"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/silver", "#forge:dusts/silver"], "fallback_type": "raw"}

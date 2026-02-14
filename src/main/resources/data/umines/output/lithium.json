@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/lithium","#c:raw_materials/lithium"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/lithium", "#forge:dusts/lithium"], "fallback_type": "dust"}

@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/nickel","#c:raw_materials/nickel"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/nickel", "#forge:dusts/nickel"], "fallback_type": "raw"}

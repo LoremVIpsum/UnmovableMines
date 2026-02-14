@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/diamond","minecraft:diamond"],
-  "fallback_type": "dust"
-}
+{"items": ["minecraft:diamond", "#forge:dusts/diamond"], "fallback_type": "dust"}

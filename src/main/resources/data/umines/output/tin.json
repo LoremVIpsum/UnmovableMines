@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/tin","#c:raw_materials/tin"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/tin", "#forge:dusts/tin"], "fallback_type": "raw"}

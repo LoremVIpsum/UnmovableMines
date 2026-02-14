@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/titanium","#c:raw_materials/titanium"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/titanium", "#forge:dusts/titanium"], "fallback_type": "raw"}

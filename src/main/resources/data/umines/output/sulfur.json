@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/sulfur","#c:raw_materials/sulfur", "#c:items/sulfur", "#c:sulfur"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/sulfur", "#forge:dusts/sulfur"], "fallback_type": "raw"}

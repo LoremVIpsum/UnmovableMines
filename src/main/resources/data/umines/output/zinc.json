@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/zinc","#c:raw_materials/zinc"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/zinc", "#forge:dusts/zinc"], "fallback_type": "raw"}

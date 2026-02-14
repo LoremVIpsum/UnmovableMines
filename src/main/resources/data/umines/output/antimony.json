@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/antimony","#c:raw_materials/antimony"],
-  "fallback_type": "dust"
-}
+{"items": ["#forge:raw_materials/antimony", "#forge:dusts/antimony"], "fallback_type": "dust"}

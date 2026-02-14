@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/carbon","#c:raw_materials/carbon","minecraft:coal"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/carbon", "#forge:dusts/carbon"], "fallback_type": "raw"}

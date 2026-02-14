@@ -1,4 +1,1 @@
-{
-  "items": ["#c:dusts/uranium","#c:raw_materials/uranium"],
-  "fallback_type": "raw"
-}
+{"items": ["#forge:raw_materials/uranium", "#forge:dusts/uranium"], "fallback_type": "raw"}
