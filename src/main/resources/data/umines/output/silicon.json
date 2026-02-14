@@ -1,0 +1,4 @@
+{
+  "items": ["#c:items/silicon", "#c:silicon"],
+  "fallback_type": "dust"
+}

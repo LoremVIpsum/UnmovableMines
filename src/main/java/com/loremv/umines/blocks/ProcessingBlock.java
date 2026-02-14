@@ -1,8 +1,8 @@
 package com.loremv.umines.blocks;
 
-import com.loremv.umines.OreUtils;
 import com.loremv.umines.UnmovableMines;
-import com.mojang.serialization.MapCodec;
+import com.loremv.umines.items.ItemWithChemical;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -23,8 +22,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 public class ProcessingBlock extends BaseEntityBlock {
+    private static final Logger LOGGER = LogUtils.getLogger();
     public ProcessingBlock(Properties settings) {
         super(settings);
     }
@@ -66,14 +67,24 @@ public class ProcessingBlock extends BaseEntityBlock {
         if(!world.isClientSide && hand==InteractionHand.MAIN_HAND)
         {
             ProcessingBE be = (ProcessingBE) world.getBlockEntity(pos);
+            if (be == null) { return InteractionResult.FAIL; }
+            be.ensureOresAreChosen(world);
             player.sendSystemMessage(Component.empty().append("This station can process:"));
             for (int i = 0; i < be.getProcessedOres().size(); i++) {
-                //UnmovableMines.LOGGER.info(be.getProcessedOres().getString(i));
-                Style style = Style.EMPTY.withHoverEvent(
-                        new HoverEvent(HoverEvent.Action.SHOW_ITEM,
-                                new HoverEvent.ItemStackInfo(OreUtils.REGISTRY.get(be.getProcessedOres().getString(i).toLowerCase()).getDefaultInstance())));
+                var item = ItemWithChemical.byElementName(be.getProcessedOres().get(i).getAsString());
+                if (item.isEmpty()) {
+                    LOGGER.warn("No item found for processed ore {}", be.getProcessedOres().get(i));
+                } else {
+                    Style style = Style.EMPTY.withHoverEvent(
+                            new HoverEvent(HoverEvent.Action.SHOW_ITEM,
+                                    new HoverEvent.ItemStackInfo(item.get().getDefaultInstance())));
+                    player.sendSystemMessage(Component.empty()
+                                                      .setStyle(style)
+                                                      .append(be.getProcessedOres().getString(i)));
+                }
 
-                player.sendSystemMessage(Component.empty().setStyle(style).append(be.getProcessedOres().getString(i)));
+
+
             }
         }
         return super.use(state,world,pos,player,hand, p_60508_);

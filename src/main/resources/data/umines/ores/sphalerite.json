@@ -1,0 +1,6 @@
+{
+  "produces": [
+    { "name": "zinc", "rolls": 1 },
+    { "name": "iron", "rolls": 1 }
+  ]
+}

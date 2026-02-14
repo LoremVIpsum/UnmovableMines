@@ -1,0 +1,4 @@
+{
+  "items": ["#c:raw_materials/silver", "#c:ingots/silver"],
+  "fallback_type": "raw"
+}

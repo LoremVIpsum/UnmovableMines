@@ -1,0 +1,4 @@
+{
+  "items": ["#c:raw_materials/nickel", "#c:ingots/nickel"],
+  "fallback_type": "raw"
+}

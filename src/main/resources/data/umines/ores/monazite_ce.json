@@ -1,0 +1,8 @@
+{
+  "produces": [
+    { "name": "cerium", "rolls": 1 },
+    { "name": "lanthanum", "rolls": 1 },
+    { "name": "neodymium", "rolls": 1 },
+    { "name": "thorium", "rolls": 1 }
+  ]
+}
